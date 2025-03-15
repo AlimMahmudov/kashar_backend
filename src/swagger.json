@@ -1,0 +1,490 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Todo and Gallery API",
+    "version": "1.0.0",
+    "description": "Документация API для управления карточками (Todo) и галереей (Gallery)"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Локальный сервер"
+    }
+  ],
+  "paths": {
+    "/api/v1/card/get-all": {
+      "get": {
+        "summary": "Получить все карточки",
+        "operationId": "getAllCards",
+        "tags": ["cards"],
+        "responses": {
+          "200": {
+            "description": "Список карточек",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Todo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/card/create": {
+      "post": {
+        "summary": "Создать новую карточку",
+        "operationId": "createCard",
+        "tags": ["cards"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Карточка успешно создана",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/card/delete/{id}": {
+      "delete": {
+        "summary": "Удалить карточку",
+        "operationId": "deleteCard",
+        "tags": ["cards"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Карточка удалена",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Карточка не найдена"
+          }
+        }
+      }
+    },
+    "/api/v1/card/edit/{id}": {
+      "put": {
+        "summary": "Редактировать карточку",
+        "operationId": "editCard",
+        "tags": ["cards"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Карточка обновлена",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Карточка не найдена"
+          }
+        }
+      }
+    },
+    "/api/v1/gallery/get-all": {
+      "get": {
+        "summary": "Получить все фото",
+        "operationId": "getAllGallery",
+        "tags": ["gallery"],
+        "responses": {
+          "200": {
+            "description": "Список фото",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Gallery"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gallery/create": {
+      "post": {
+        "summary": "Создать новое фото",
+        "operationId": "createGallery",
+        "tags": ["gallery"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GalleryInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Фотография успешно создана",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gallery"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gallery/delete/{id}": {
+      "delete": {
+        "summary": "Удалить фотографию",
+        "operationId": "deleteGallery",
+        "tags": ["gallery"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Фотография удалена",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Фотография не найдена"
+          }
+        }
+      }
+    },
+    "/api/v1/gallery/edit/{id}": {
+      "put": {
+        "summary": "Редактировать фотографию",
+        "operationId": "editGallery",
+        "tags": ["gallery"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GalleryInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Фотография обновлена",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gallery"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Фотография не найдена"
+          }
+        }
+      }
+    },
+    "/api/v1/tool/get-all": {
+      "get": {
+        "summary": "Получить все фото",
+        "operationId": "getAllTool",
+        "tags": ["tool"],
+        "responses": {
+          "200": {
+            "description": "Список фото",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tool"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tool/create": {
+      "post": {
+        "summary": "Создать новое фото",
+        "operationId": "createTool",
+        "tags": ["tool"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Фотография успешно создана",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gallery"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tool/delete/{id}": {
+      "delete": {
+        "summary": "Удалить фотографию",
+        "operationId": "deleteTool",
+        "tags": ["tool"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Фотография удалена",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Фотография не найдена"
+          }
+        }
+      }
+    },
+    "/api/v1/tool/edit/{id}": {
+      "put": {
+        "summary": "Редактировать фотографию",
+        "operationId": "editTool",
+        "tags": ["tool"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Фотография обновлена",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gallery"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Фотография не найдена"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Todo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "dataCreate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataUpdate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TodoInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          }
+        },
+        "required": ["title", "description", "image"]
+      },
+      "Gallery": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "photo": {
+            "type": "string"
+          }
+        }
+      },
+      "GalleryInput": {
+        "type": "object",
+        "properties": {
+          "photo": {
+            "type": "string"
+          }
+        },
+        "required": ["photo"]
+      },
+      "Tool": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "photo": {
+            "type": "string"
+          }
+        }
+      },
+      "ToolInput": {
+        "type": "object",
+        "properties": {
+          "photo": {
+            "type": "string"
+          }
+        },
+        "required": ["photo"]
+      }
+    }
+  }
+}
