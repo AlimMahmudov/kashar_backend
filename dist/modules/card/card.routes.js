@@ -11,4 +11,3 @@ router.post("/create", card_controllers_1.default.createCard);
 router.delete("/delete/:id", card_controllers_1.default.deleteCard);
 router.put("/edit/:id", card_controllers_1.default.editCard);
 exports.default = router;
-///original

@@ -19,5 +19,3 @@ router.use("/gallery", cors(corsConfig), galleryRoutes);
 router.use("/tool", cors(corsConfig), toolRoutes);
 
 export default router;
-
-// "original"
