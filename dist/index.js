@@ -19,3 +19,4 @@ const start = async () => {
     }
 };
 start();
+// "start": "prisma generate && nest start",
